@@ -11,17 +11,48 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
 
-app.get("/", (req, res) => {
-  console.log("Index route hit");
-  res.render("index", {}, (err, html) => {
-      if (err) {
-          console.error("Error rendering index.ejs:", err);
-          res.status(500).send("Server Error");
-      } else {
-          res.send(html);
-      }
-  });
+app.get("/", (req,res)=>{
+  res.render("index");
 });
+
+app.get("/login", (req,res)=>{
+  res.render("login");
+});
+
+app.get("/signUp", (req,res)=>{
+  res.render("signup");
+});
+
+app.get("/home", (req,res)=>{
+  res.redirect("/");
+});
+
+app.get("/features", (req,res)=>{
+  res.render("features");
+});
+
+app.get("/faqs", (req,res)=>{
+  res.render("faqs");
+});
+
+app.get("/aboutUs", (req,res)=>{
+  res.render("about");
+});
+
+app.post("/check", (req, res) => {
+  const mail = req.body.email;
+  const pass = req.body.password;
+  console.log(mail);
+  console.log(pass);
+  if (mail==="xyz@gmail.com" & pass === "12345678"){
+  res.render("home");
+  }else{
+    res.redirect("login");
+  }
+});
+
+
+
 
 
   app.listen(port, () => {
