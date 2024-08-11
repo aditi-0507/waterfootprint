@@ -12,8 +12,17 @@ app.set('view engine', 'ejs');
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-    res.render("index");
+  console.log("Index route hit");
+  res.render("index", {}, (err, html) => {
+      if (err) {
+          console.error("Error rendering index.ejs:", err);
+          res.status(500).send("Server Error");
+      } else {
+          res.send(html);
+      }
   });
+});
+
 
   app.listen(port, () => {
     console.log(`Listening on port ${port}`);
